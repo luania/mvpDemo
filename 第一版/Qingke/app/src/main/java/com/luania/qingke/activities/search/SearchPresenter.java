@@ -5,26 +5,24 @@ import com.luania.qingke.activities.common.BasePresenter;
 /**
  * Created by luania on 16/8/3.
  */
-class SearchPresenter extends BasePresenter<SearchView> implements SearchViewListener {
+class SearchPresenter extends BasePresenter {
+    public SearchView searchView;
 
-    public SearchPresenter(SearchView view) {
-        super(view);
+    public SearchPresenter(SearchView searchView) {
+        this.searchView = searchView;
     }
 
-    @Override
     public void onClose() {
-        view.animCloseSearchLayout();
+        searchView.animCloseSearchLayout();
     }
 
-    @Override
     public void onSearchLayoutPost() {
-        view.animOpenSearchLayout();
+        searchView.animOpenSearchLayout();
     }
 
-    @Override
     public void onCloseSearchLayoutEnd() {
-        view.goneSearchLayout();
-        view.finish();
+        searchView.goneSearchLayout();
+        searchView.finish();
     }
 }
 

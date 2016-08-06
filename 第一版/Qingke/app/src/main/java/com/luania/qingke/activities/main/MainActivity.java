@@ -23,19 +23,17 @@ public class MainActivity extends BaseActivity implements MainView {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
-    private MainPresenter listener;
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listener = new MainPresenter(this);
+        mainPresenter = new MainPresenter(this);
         findViews();
         initToolbar();
         initActionBarDrawerToggle();
         initViewPager();
-
-        System.out.println();
     }
 
     private void findViews() {
@@ -53,7 +51,7 @@ public class MainActivity extends BaseActivity implements MainView {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.itemSearch) {
-                    listener.onSearchClicked();
+                    mainPresenter.onSearchClicked();
                 }
                 return true;
             }
@@ -85,7 +83,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void onBackPressed() {
-        listener.onBackPressed();
+        mainPresenter.onBackPressed();
     }
 
     @Override
@@ -100,6 +98,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void toastMorePress() {
-        Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.more_press_exit, Toast.LENGTH_SHORT).show();
     }
 }

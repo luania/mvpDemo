@@ -16,13 +16,13 @@ public class SearchActivity extends BaseActivity implements SearchView {
     private View backgroundView;
     private FrameLayout backView;
 
-    private SearchViewListener listener;
+    private SearchPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_activity);
-        listener = new SearchPresenter(this);
+        presenter = new SearchPresenter(this);
         findViews();
         initEvent();
     }
@@ -37,13 +37,13 @@ public class SearchActivity extends BaseActivity implements SearchView {
         searchLayout.post(new Runnable() {
             @Override
             public void run() {
-                listener.onSearchLayoutPost();
+                presenter.onSearchLayoutPost();
             }
         });
         View.OnClickListener closeListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClose();
+                presenter.onClose();
             }
         };
         backgroundView.setOnClickListener(closeListener);
@@ -67,7 +67,7 @@ public class SearchActivity extends BaseActivity implements SearchView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                listener.onCloseSearchLayoutEnd();
+                presenter.onCloseSearchLayoutEnd();
             }
         });
         animator.start();
@@ -80,6 +80,6 @@ public class SearchActivity extends BaseActivity implements SearchView {
 
     @Override
     public void onBackPressed() {
-        listener.onClose();
+        presenter.onClose();
     }
 }

@@ -5,19 +5,18 @@ import com.luania.qingke.activities.common.BasePresenter;
 /**
  * Created by luania on 16/8/3.
  */
-class MainPresenter extends BasePresenter<MainView> implements MainViewListener {
+class MainPresenter extends BasePresenter{
     private long lastBackPressTime = 0;
+    public MainView view;
 
     public MainPresenter(MainView mainView) {
-        super(mainView);
+        this.view = mainView;
     }
 
-    @Override
     public void onSearchClicked() {
         view.startSearchActivity();
     }
 
-    @Override
     public void onBackPressed() {
         backPressed();
     }

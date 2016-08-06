@@ -35,17 +35,17 @@ public class VideoActivity extends BaseActivity implements VideoView {
     private FloatingActionButton fabPlay;
     private FABProgressCircle fabProgressCircle;
 
-    private VideoViewListener listener;
+    private VideoPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_detail);
-        listener = new VideoPresenter(this);
+        presenter = new VideoPresenter(this);
         initTransitions();
         findViews();
         initAppBar();
-        listener.onViewCreated();
+        presenter.onViewCreated();
     }
 
     private void initTransitions() {
@@ -56,7 +56,7 @@ public class VideoActivity extends BaseActivity implements VideoView {
             @Override
             public void onTransitionEnd(Transition transition) {
                 super.onTransitionEnd(transition);
-                listener.onReturnTransitionEnd();
+                presenter.onReturnTransitionEnd();
             }
         });
         getWindow().setReturnTransition(returnExplode);
@@ -75,14 +75,14 @@ public class VideoActivity extends BaseActivity implements VideoView {
         fabPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onPlayCLicked();
+                presenter.onPlayCLicked();
             }
         });
         toolbar.setNavigationIcon(R.drawable.navigation_close);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onToolbarNavigationClick();
+                presenter.onToolbarNavigationClick();
             }
         });
     }
@@ -105,7 +105,7 @@ public class VideoActivity extends BaseActivity implements VideoView {
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
-                listener.onVideoPrepared();
+                presenter.onVideoPrepared();
             }
         });
         videoView.start();
@@ -120,13 +120,13 @@ public class VideoActivity extends BaseActivity implements VideoView {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
-                listener.onAnimHideImageViewStart();
+                presenter.onAnimHideImageViewStart();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                listener.onAnimHideImageViewEnd();
+                presenter.onAnimHideImageViewEnd();
             }
         });
         animator.start();
